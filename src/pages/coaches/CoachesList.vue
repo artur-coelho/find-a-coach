@@ -6,7 +6,7 @@
     <base-card>
       <div class="controls">
         <base-button mode="outline">Refresh</base-button>
-        <base-button link to="/register">Register</base-button>
+        <base-button v-if="!isCoach" link to="/register">Register</base-button>
       </div>
       <ul v-if="hasCoaches">
         <coach-item
@@ -45,21 +45,24 @@
     computed: {
       filteredCoaches() {
         const coaches = this.$store.getters['coaches/coaches'];
-        return coaches.filter(coach => {
-          if(this.activeFilters.frontend && coach.areas.includes('frontend')) {
-            return true
+        return coaches.filter((coach) => {
+          if (this.activeFilters.frontend && coach.areas.includes('frontend')) {
+            return true;
           }
-          if(this.activeFilters.backend && coach.areas.includes('backend')) {
-            return true
+          if (this.activeFilters.backend && coach.areas.includes('backend')) {
+            return true;
           }
-          if(this.activeFilters.career && coach.areas.includes('career')) {
-            return true
+          if (this.activeFilters.career && coach.areas.includes('career')) {
+            return true;
           }
-          return false
-        })
+          return false;
+        });
       },
       hasCoaches() {
         return this.$store.getters['coaches/hasCoaches'];
+      },
+      isCoach() {
+        return this.$store.getters['coaches/isCoach'];
       },
     },
     methods: {
