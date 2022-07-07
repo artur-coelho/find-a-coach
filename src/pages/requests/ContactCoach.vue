@@ -2,7 +2,7 @@
   <form @submit.prevent="submitForm">
     <div class="form-control">
       <label for="email">Your email</label>
-      <input type="text" id="email" v-model="emial" />
+      <input type="text" id="email" v-model.trim="email" />
     </div>
     <div class="form-control">
       <label for="message">Message</label>
@@ -10,7 +10,7 @@
         name="message"
         id="message"
         rows="5"
-        v-model="message"
+        v-model.trim="message"
       ></textarea>
     </div>
     <p class="errors" v-if="!formIsValid">
@@ -42,6 +42,12 @@
           this.formIsValid = false;
           return;
         }
+        this.$store.dispatch('requests/contactCoach', {
+          email: this.email,
+          message: this.message,
+          coachId: this.$route.id,
+        });
+        this.$router.replace('/coaches');
       },
     },
   };
