@@ -61,14 +61,17 @@
           return;
         }
         this.isLoading = true;
+
+        const actionPayload = {
+          email: this.email,
+          password: this.password,
+        };
+        
         try {
           if (this.mode === 'login') {
-            // send http request...
+            await this.$store.dispatch('login', actionPayload);
           } else {
-            await this.$store.dispatch('signUp', {
-              email: this.email,
-              password: this.password,
-            });
+            await this.$store.dispatch('signUp', actionPayload);
           }
         } catch (err) {
           this.error = err.message || 'Failed to authenticate, try later.';
