@@ -1,16 +1,14 @@
 export default {
   async signUp(context, payload) {
-    const response = await fetch(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBEw2GBKh4wBjhceP_WaTnTrAMS4-P_dD8',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          email: payload.email,
-          password: payload.password,
-          returnSecureToken: true,
-        }),
-      }
-    );
+    const baseUrl = process.env.VUE_APP_API_AUTH_SIGNUP;
+    const response = await fetch(baseUrl, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: payload.email,
+        password: payload.password,
+        returnSecureToken: true,
+      }),
+    });
     const responseData = await response.json();
 
     if (!response.ok) {
@@ -29,17 +27,16 @@ export default {
     });
   },
   async login(context, payload) {
-    const response = await fetch(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBEw2GBKh4wBjhceP_WaTnTrAMS4-P_dD8',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          email: payload.email,
-          password: payload.password,
-          returnSecureToken: true,
-        }),
-      }
-    );
+    const baseUrl = process.env.VUE_APP_API_AUTH_SIGNIN;
+    console.log(baseUrl);
+    const response = await fetch(baseUrl, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: payload.email,
+        password: payload.password,
+        returnSecureToken: true,
+      }),
+    });
     const responseData = await response.json();
 
     if (!response.ok) {
